@@ -18,44 +18,64 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
+
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+    ></script>
+
     <title>Work Day Scheduler</title>
+
+    <style>
+      .row > div {
+        border: 2px dashed black;
+        padding: 20px;
+      }
+    </style>
   </head>
 
   <body>
     <header class="jumbotron">
-      <h1 class="display-3">Work Day Scheduler   <i class="fas fa-calendar-check"></i> </h1>
+      <h1 class="display-3">
+        Work Day Scheduler <i class="fas fa-calendar-check"></i>
+      </h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
+      <p id="1a" class="answer"></p>
+
+      <script>
+        var today = moment().hour();
+        $("#1a").text(today.format("MMM Do, YYYY"));
+      </script>
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
+      for (var i = 9; i <= 17; i++) {
+        // moment().hour();
+        var parentEl = $('<div class="row" data-id="' + i + '">');
+        var idEl = $('<div class="col-1">' + i + "</div>");
+        var textEl = $('<textarea class="col-10 name">');
+        var btnEl = $('<button class="col-1 grade">Save </button>');
+        parentEl.append(idEl, textEl, btnEl);
+        $(".container").append(parentEl);
+      }
 
-        for (var i = 9; i <= 17; i++) {
-           // moment().hour();
-          var parentEl = $('<div class="row" data-id="' + i + '">');
-          var idEl = $('<div class="col-1">' + i + '</div>');
-          var textEl = $('<textarea class="col-10 name">');
-          var btnEl = $('<button class="col-1 grade">Save </button>');
-          parentEl.append(idEl, textEl, btnEl);
-          $('.container').append(parentEl);
-        }
-    
-        $('.container').on('click', '.grade', function() {
-          var parentId = $(this).parent().attr('data-id');
-          var name = $(this).prev().val();
-          console.log(name);
-          localStorage.setItem(parentId, name);
-        });
-        $('.name').each(function() {
-          var parentId = $(this).parent().attr('data-id');
-          var name = localStorage.getItem(parentId);
-          $(this).val(name);
-        });
-      </script>
+      $(".container").on("click", ".grade", function () {
+        var parentId = $(this).parent().attr("data-id");
+        var name = $(this).prev().val();
+        console.log(name);
+        localStorage.setItem(parentId, name);
+      });
+      $(".name").each(function () {
+        var parentId = $(this).parent().attr("data-id");
+        var name = localStorage.getItem(parentId);
+        $(this).val(name);
+      });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   </body>
 </html>
