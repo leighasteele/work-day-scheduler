@@ -1,5 +1,5 @@
 var todayDate = moment().format("dddd, MMM Do YYYY");
-$("#1a").html(todayDate);
+$("#currentDay").html(todayDate);
 
 function timeTracker() {
 
